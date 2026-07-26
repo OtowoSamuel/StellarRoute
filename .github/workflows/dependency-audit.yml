@@ -21,9 +21,9 @@ jobs:
         run: cargo install cargo-audit --version 0.21.2 --locked
 
       - name: Run cargo audit
-        # .cargo/audit.toml contains accepted exceptions with justification.
-        # Any advisory NOT listed there will fail the build.
-        run: cargo audit --config .cargo/audit.toml
+        # cargo-audit automatically reads .cargo/audit.toml from the workspace
+        # root. Any advisory NOT listed there will fail the build.
+        run: cargo audit
 
   npm-audit-frontend:
     name: npm audit (frontend)

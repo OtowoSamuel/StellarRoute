@@ -70,7 +70,7 @@ For a high-severity advisory that cannot be resolved by a package update:
 
 | Advisory | Package | Severity | Reason | Review Date |
 |---|---|---|---|---|
-| *(none at this time)* | | | | |
+| GHSA-frvp-7c67-39w9 | `@hono/node-server <2.0.5` via `shadcn >=3.8.4` | Moderate | The fix requires downgrading `shadcn` to `3.8.3`, which is a **breaking change** to the component generator CLI (dev-only tool, not shipped in production bundles). `@hono/node-server` is a transitive dep of `shadcn`'s MCP server feature and is never executed at runtime or in CI tests. Risk is Windows-only path traversal in `serve-static`, not reachable in our usage. Re-evaluate when `shadcn >=3.8.4` ships a non-breaking fix. | 2026-10-01 |
 
 ---
 
