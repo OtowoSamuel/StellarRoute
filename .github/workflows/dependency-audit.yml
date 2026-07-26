@@ -17,8 +17,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install cargo-audit
-        # Pin to a specific version for reproducible CI; update deliberately
-        run: cargo install cargo-audit --version 0.21.2 --locked
+        # 0.22+ is required for CVSS 4.0 advisory parsing (advisory DB now uses it)
+        run: cargo install cargo-audit --version 0.22.2 --locked
 
       - name: Run cargo audit
         # cargo-audit automatically reads .cargo/audit.toml from the workspace
