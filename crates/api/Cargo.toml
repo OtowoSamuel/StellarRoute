@@ -63,7 +63,7 @@ arc-swap = { workspace = true }
 dashmap = "5.5"
 
 # Metrics
-prometheus = "0.13"
+prometheus = "0.14"
 lazy_static = "1.4"
 
 # Async utilities
