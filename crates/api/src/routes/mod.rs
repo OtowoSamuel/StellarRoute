@@ -5,6 +5,7 @@ pub mod admin;
 pub mod admin_cache;
 pub mod assets;
 pub mod canary;
+pub mod card;
 pub mod contract_registry;
 pub mod health;
 pub mod idempotent_quote;
@@ -151,7 +152,7 @@ pub fn create_router(state: Arc<AppState>) -> Router {
             dependency_breaker_guard,
         ));
 
-    Router::new()
+    let mut app = Router::new()
         // Health check
         .route("/health", get(health::health_check))
         .route("/health/deps", get(health::dependency_health))
@@ -247,6 +248,12 @@ pub fn create_router(state: Arc<AppState>) -> Router {
             get(contract_registry::get_contract_version_by_network),
         )
         // WebSocket quote stream (real-time quotes)
-        .route("/ws", get(ws::ws_handler))
-        .with_state(state)
+        .route("/ws", get(ws::ws_handler));
+
+    // Conditionally add card routes
+    if crate::card::is_card_enabled() {
+        app = app.merge(card::create_card_router(state.clone()));
+    }
+
+    app.with_state(state)
 }
